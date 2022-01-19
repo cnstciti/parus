@@ -1,12 +1,10 @@
 <?php
 namespace backend\models\map;
 
-//use backend\models\PolygonEngine;
-//use common\models\ar\MyObjectAR;
 use backend\models\rep\ClientRentObjectsRep;
 use backend\models\rep\ClientRentRep;
 use common\models\Parser;
-use yii\helpers\Url;
+use backend\models\Params;
 use yii\helpers\ArrayHelper;
 
 class MapClientRent
@@ -155,10 +153,10 @@ class MapClientRent
                     }, 
                     "properties": 
                     {
-                        "balloonContentHeader": "' . str_replace("\r\n", '', $balloonContentHeader) . '",  
-                        "balloonContentBody": "' . str_replace("\r\n", '', $balloonContentBody) . '", 
+                        "balloonContentHeader": "' . str_replace(Params::mapStrReplace(), '', $balloonContentHeader) . '",  
+                        "balloonContentBody": "' . str_replace(Params::mapStrReplace(), '', $balloonContentBody) . '", 
                         "clusterCaption": "' . $room . '", 
-                        "hintContent": "' . str_replace("\r\n", '', $hintContent) . '",
+                        "hintContent": "' . str_replace(Params::mapStrReplace(), '', $hintContent) . '",
                         "iconContent": "' . $iconContent . '"
                     },
                     "options": {
