@@ -1,0 +1,24 @@
+.card {
+    /*margin: 0.25rem 0;*/
+}
+
+.card-header {
+    padding: 0.2rem 0.5rem;
+    font-size: 1.15rem;
+}
+
+.card-body {
+    padding: 0.2rem 0.4rem;
+}
+
+.card-body h5 {
+    padding-top: 1rem;
+}
+
+.card .icon {
+    cursor: pointer;
+    color: white;
+}
+.card .icon:hover {
+    color: lightgrey;
+}

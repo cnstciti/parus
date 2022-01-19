@@ -1,0 +1,17 @@
+.main_link_public {
+    color: #1cc500;
+    font-size: 3.5rem;
+}
+.main_link_public:hover {
+    color: #1cc500;
+    text-decoration: none;
+}
+
+.main_link_upload {
+    color: #ff2e2d;
+    font-size: 3.5rem;
+}
+.main_link_upload:hover {
+    color: #ff2e2d;
+    text-decoration: none;
+}
