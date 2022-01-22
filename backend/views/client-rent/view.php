@@ -6,33 +6,18 @@
  *
  */
 
+use backend\assets\ClientRentAsset;
 use yii\web\View;
 use yii\helpers\Url;
-use backend\assets\ClientRentAsset;
 
 ClientRentAsset::register($this);
 
 $this->title = 'Клиент';
 
 $clientId = $client['id'];
-$zoom = empty($client['zoom']) ? 12 : $client['zoom'];
-/*
-if ($client['zoom']) {
-    $zoom = $client['zoom'];
-} else {
-    $zoom = 12;
-}
-*/
-$center = empty($client['center']) ? '[55.430640, 37.545424]' : $client['center'];
-/*
-if ($client['center']) {
-    $center = $client['center'];
-} else {
-    $center = '[55.430640, 37.545424]';
-}
-*/
+$zoom     = empty($client['zoom']) ? 12 : $client['zoom'];
+$center   = empty($client['center']) ? '[55.430640, 37.545424]' : $client['center'];
 $polygons = json_encode(explode('#', $client['polygons']));
-
 ?>
 <h2><?= $this->title ?></h2>
 <div class="row">
@@ -44,17 +29,15 @@ $polygons = json_encode(explode('#', $client['polygons']));
             <div class="col-12 mt-2 mb-2">
                 <?= $objects ?>
             </div>
-            <div class="col-12">
-                <button id="saveData">Сохранить</button>
-            </div>
         </div>
     </div>
     <div class="col-lg-8">
         <div id="msgError" style="color: red; font-size: 1.1rem;"></div>
-        <button id="startEdit">Включить редактирование</button>
-        <button id="stopEdit">Отключить редактирование</button>
+        <button id="startEdit">Вкл. редактирование</button>
+        <button id="stopEdit">Откл. редактирование</button>
         <button id="newArea">Новая область</button>
         <button id="delAll">Удалить всё</button>
+        <button id="saveData">Сохранить</button>
         <div id="map" style="width:800px; height:580px"></div>
     </div>
 </div>
