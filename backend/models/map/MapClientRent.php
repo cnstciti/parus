@@ -16,53 +16,11 @@ class MapClientRent
         $polygonArray = self::_preparePolygonArray($client);
         $params       = ArrayHelper::merge($amountArray, $polygonArray);
         $objects      = Parser::rentSearch($params);
-        /*
-        if ($client['amount_flat1']) {
-            $params['flat1Amount'] = $client['amount_flat1'];
-        }
-        if ($client['amount_flat2']) {
-            $params['flat2Amount'] = $client['amount_flat2'];
-        }
-        if ($client['amount_flat3']) {
-            $params['flat3Amount'] = $client['amount_flat3'];
-        }
-        if ($client['amount_flat4']) {
-            $params['flat4Amount'] = $client['amount_flat4'];
-        }
-        if ($client['amount_flat5']) {
-            $params['flat5Amount'] = $client['amount_flat5'];
-        }
-        if ($client['amount_flat6']) {
-            $params['flat6Amount'] = $client['amount_flat6'];
-        }
-        if ($client['amount_studio']) {
-            $params['studioAmount'] = $client['amount_studio'];
-        }
-        if ($client['amount_room']) {
-            $params['roomAmount'] = $client['amount_room'];
-        }
-*/
 
         if (!$objects['error']['code'] && !empty($objects['result'])) {
             $objects = ClientRentObjectsRep::findClientRent($objects['result'], $clientId);
         }
-/*
-        $polygons = [];
-        $polygonsClient = explode('#', $client['polygons']);
-        foreach ($polygonsClient as $polygon) {
-            if ($polygon && $polygon != '[[],[]]') {
-                $s1 = str_replace(']],[]]', '', $polygon);
-                $s1 = str_replace('[[[', '', $s1);
-                $coors = explode('],[', $s1);
-                $tmp = [];
-                foreach ($coors as $coor) {
-                    list($x, $y) = explode(',', $coor);
-                    $tmp[] = [$x, $y];
-                }
-                $polygons[] = $tmp;
-            }
-        }
-*/
+
         $json = '{
                 "type": "FeatureCollection",
                     "features": [
@@ -99,11 +57,9 @@ class MapClientRent
                     $iconColor = 'islands#pinkDotIcon';
                 }
 
-                //$address = $object['address'] ? $object['myAddress'] : $object['address'];
-                $address = $object['address'];
+                $address = str_replace('"', '&quot;', $object['address']);
                 $price = number_format($object['price'], 0, '.', ' ');
                 $balloonContentHeader = '<div class=\'balloon-header\'>' . $room . '</div>';
-//<p><a target=\'_blank\' href=\'' . Url::to(['not-parser-flat-rent/view', 'id' => $object['id'], 'client' => $clientId]) . '\'>' . $room . '</a></p>';
                 $balloonContentBody   = '
                     <div class=\'balloon-body mb-1 mt-1\'>
                         <div class=\'row\'>
@@ -125,7 +81,6 @@ class MapClientRent
                                 </div>
                             </div>
                 ';
-//                <div class=\'col-5\'><a class=\'btn btn-outline-success btn-sm w-100\' href=\'' . Url::to(['client-rent/non-call', 'id' => $object['id'], 'client' => $clientId]) . '\' role=\'button\'>Недозвон</a></div>
                 if ($address) {
                     $balloonContentBody .= '
                             <div class=\'col-2 label mt-3\'>Адрес:</div>
@@ -136,7 +91,6 @@ class MapClientRent
                         </div>
                     </div>
                 ';
-                  //      <p><a target=\'_blank\' href=\'' . Url::to(['not-parser-flat-rent/view', 'id' => $object['id'], 'client' => $clientId]) . '\'>' . $address . '</a></p><p>Цена: ' . $price . '</p><p><a target=\'_blank\' href=\'' . Url::to(['not-parser-flat-rent/view', 'id' => $object['id'], 'client' => $clientId]) . '\'>Карточка</a></p>';
                 $hintContent          = '
                     <div class=\'hint-content mb-2 mt-2 mr-1 ml-1\'>
                         <div class=\'price mb-2\'>' . $price . '</div>
@@ -222,4 +176,5 @@ class MapClientRent
 
         return $ret;
     }
+
 }
